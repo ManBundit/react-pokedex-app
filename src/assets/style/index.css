@@ -5,6 +5,14 @@ body {
   font-family: 'Atma', cursive;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+}
+
 #root {
   width: 1024px;
   height: 768px;

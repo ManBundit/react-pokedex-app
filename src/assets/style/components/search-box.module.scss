@@ -1,0 +1,32 @@
+@import 'assets/style/_variables.scss';
+
+.wrapSearchBox {
+  padding-bottom: 10px;
+}
+.searchBox {
+  width: 100%;
+  border: 3px solid $searchBoxBorder;
+  position: relative;  
+  input {
+    border: none;
+    font-size: 32px;
+    font-family: 'Gaegu';
+    height: 52px;
+    width: calc(100% - 40px);
+    &:focus {
+      outline: none;
+    }
+  }
+  .searchIcon {    
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      max-width: 40px;
+    }
+  }
+}

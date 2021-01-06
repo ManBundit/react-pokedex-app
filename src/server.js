@@ -20,7 +20,7 @@ app.get('/api/cards', (req, res) => {
       const type = _.toUpper(_.get(req, 'query.type', ''))
       const checkName = _.includes(_.toUpper(card.name), name)
       const checkType = _.includes(_.toUpper(card.type), type)
-      return checkName && checkType
+      return checkName || checkType
     })
   })
 

@@ -1,0 +1,60 @@
+@import 'assets/style/_variables.scss';
+
+.App {
+  padding-top: 100px;
+  padding-bottom: 80px;
+  width: 100%;
+  height: 100%;
+}
+
+.pokedexHeader {
+  padding: 16px;
+  font-size: 42px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapPokeList {
+  padding: 20px 10px;
+  padding-bottom: 60px;
+  max-height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.pokedexList {      
+  width: 100%;    
+  display: grid;
+  grid-template-columns: 49% 49%;
+  grid-template-rows: auto;
+  gap: 16px;
+  justify-content: center;
+}
+
+.pokedexFooter {  
+  position: absolute;
+  bottom: 0;  
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  background: $bottomBarBackground;
+  .addBtn {
+    cursor: pointer;
+    font-size: 84px;
+    position: absolute;
+    border-radius: 50%;
+    background: $bottomBarBackground;
+    transform: translateY(-40px);
+    width: 120px;
+    height: 120px;
+    color: $bottomBarTextColor;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-shadow: 0 0 2px 1px $bottomBarBoxShadow;
+  }
+}

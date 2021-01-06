@@ -1,0 +1,120 @@
+@import 'assets/style/_variables.scss';
+
+.card {
+  position: relative;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: $cardBackground;
+  box-shadow: 0 1px 4px 1px $cardBoxShadow;
+  &:hover {
+    box-shadow: 0 1px 4px 1px $cardBoxShadowHover;    
+    .actionBtn {
+      display: block;
+    }
+  }
+}
+.actionBtn {
+  display: none;
+  cursor: pointer;
+  font-family: inherit;
+  border: 0;
+  outline: 0;
+  background: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: 800;
+  color: $colorAddButton;
+}
+.removeBtn {
+  background: red;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.wrapImg {  
+  flex-grow: 1;
+  flex-shrink: 0;
+  max-width: 146px;
+  width: 100%;
+}
+.cardImg {
+  background: $cardBoxShadowHover;
+  position: relative;
+  padding-top: 137.5%;
+  width: 100%;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+}
+.cardDetail {    
+  padding: 0 16px;
+  max-width: calc(100% - 146px);
+  width: 100%;
+}
+.name {
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 36px;
+  font-family: 'Gaegu'
+}
+.wrapStatus { 
+  max-width: 460px; 
+  width: 100%;
+  padding: 2.5px 0;
+}
+.status {
+  padding: 2.5px 0;
+  width: 100%;
+  display: flex;  
+  justify-content: space-between;
+  .title {    
+    font-size: 18px;    
+    min-width: 64px;
+  }
+  .bar {    
+    max-width: 360px;
+    width: 100%;
+    border-radius: 36px;
+    box-shadow: 0 0 1px 1px $levelTubeBoxShadow;
+    position: relative;    
+    background: $levelTubeBackground;
+    .value {
+      border-radius: 36px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 50%;
+      background: $levelTubeValueBackground;
+    }
+  }
+}
+.happinessLevel { 
+  max-width: 100%; 
+  height: 40px;
+  margin-top: 8px;  
+  display: flex;   
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.happinessIcon { 
+  &:not(:last-child) {
+    margin-right: 2px;
+  }   
+  display: flex;
+  max-width: 40px;
+  min-width: 40px;
+}

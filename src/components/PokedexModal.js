@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react'
 import { getCards } from 'services/cards.api'
 import { PokedexContext } from 'context/pokedex-context'
 import styles from 'assets/style/components/pokedex-modal.module.scss'
@@ -15,62 +15,69 @@ const PokedexModal = () => {
     pokedexList ,
     setPokedexList 
   } = useContext(PokedexContext)
-    
+       
+  const handleInputChange = (value) => {    
+    setKeyword(value)
+  }
+  
   useEffect(() => {
+    setKeyword('')
     setActiveAnimation(true)    
-  }, [])
+  }, [])  
 
-  useEffect(() => {             
+  const closeModal = useCallback(() => {
+    setActiveAnimation(false)
+    setTimeout(() => {
+      setIsActiveModal(false)
+    }, 300)
+  }, [setIsActiveModal])
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setKeyword('')
-        setActiveAnimation(false)
-        setTimeout(() => {
-          setIsActiveModal(false)
-        }, 300)
+      if (modalRef.current && !modalRef.current.contains(event.target)) {        
+        closeModal()
       }
     }          
     document.addEventListener("mousedown", handleClickOutside);
     return () => {         
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [modalRef, setIsActiveModal]);
+  }, [modalRef, closeModal]);
   
-  useEffect(() => {            
-    const getPokedex = async () => {      
-      try {
-        const response = await getCards({
-          name: keyword,
-          type: keyword
-        })      
-        const alreadyAddedPokemonIds = pokedexList.map((pokemon) => (
-          pokemon.id
-        ))
-        const filteredList = response?.data?.cards.filter((card) => (
-          !alreadyAddedPokemonIds.includes(card.id))
-        )
-        setList(filteredList)
-      } catch {
-        setList([])
-      }            
+  const getPokedex = useCallback(async () => {
+    try {
+      const response = await getCards({
+        name: keyword,
+        type: keyword
+      })      
+      const alreadyAddedPokemonIds = pokedexList.map((pokemon) => (
+        pokemon.id
+      ))
+      const filteredList = response?.data?.cards.filter((card) => (
+        !alreadyAddedPokemonIds.includes(card.id))
+      )
+      setList(filteredList)
+    } catch {
+      setList([])
     }
-    getPokedex()    
-  }, [keyword, pokedexList])
-
-  const card = (data) => (
-    <div className={styles.cardWrap} key={data.id}>
-      <PokemonCard data={data} action={addPokemonToDex} />
-    </div>
-  )  
-  const addPokemonToDex = (pokemonData) => {    
+  }, [keyword, pokedexList]);
+  
+  useEffect(() => {    
+    getPokedex()
+  }, [getPokedex])
+  
+  const addPokemonToDex = (pokemonData) => {  
     setPokedexList([
       ...pokedexList,
       pokemonData
     ])
   }
-  const handleInputChange = (value) => {    
-    setKeyword(value)
-  }
+  
+  const card = (data) => (
+    <div className={styles.cardWrap} key={data.id}>
+      <PokemonCard data={data} action={addPokemonToDex} />
+    </div>
+  )      
   return (
     <div className={`${styles.modal} ${activeAnimation && styles.active}`}>
       <div ref={modalRef} className={styles.modalBox}>

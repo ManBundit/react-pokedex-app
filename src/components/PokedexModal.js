@@ -20,8 +20,7 @@ const PokedexModal = () => {
     setKeyword(value)
   }
   
-  useEffect(() => {
-    setKeyword('')
+  useEffect(() => {    
     setActiveAnimation(true)    
   }, [])  
 
